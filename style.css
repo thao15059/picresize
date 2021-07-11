@@ -1,0 +1,47 @@
+.image-container {
+  margin: 20px auto;
+  width: 750px;
+  height: 500px;
+}
+
+.image-container img {
+  width: 100%;
+}
+
+.image-container-big {
+  margin: 20px auto;
+  width: 1000px;
+  height: 1000px;
+}
+
+.image-container-big img {
+  width: 100%;
+}
+
+.img-export {
+  display: block;
+}
+
+.image-container-1 {
+  position: relative;
+  width: 750px;
+  height: 500px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.image-container-1 span {
+  position: absolute;
+  font-size: 30px;
+}
+
+.image-container-2 {
+  position: relative;
+  width: 1000px;
+  height: 1000px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.image-container-2 span {
+  position: absolute;
+  font-size: 30px;
+}
