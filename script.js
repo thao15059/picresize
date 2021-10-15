@@ -42,10 +42,12 @@ document.querySelector("#btnExport").addEventListener("click", function (e) {
   var croppedImageDataURL = cropper.getCroppedCanvas({
     width: 750,
     height: 500,
+    fillColor: "#fff",
   });
   var croppedImageDataURLBig = cropperBig.getCroppedCanvas({
     width: 1000,
     height: 1000,
+    fillColor: "#fff",
   });
   document
     .querySelector("#output-crop")
