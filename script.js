@@ -24,7 +24,7 @@ const loadFile = (event) => {
   imageBig.src = URL.createObjectURL(event.target.files[0]);
   cropperBig = new Cropper(imageBig, {
     dragMode: "move",
-    autoCropArea: 1,
+    // autoCropArea: 1,
     restore: false,
     guides: true,
     center: false,
@@ -32,8 +32,8 @@ const loadFile = (event) => {
     cropBoxMovable: false,
     cropBoxResizable: true,
     toggleDragModeOnDblclick: false,
-    minCropBoxWidth: 1000,
-    minCropBoxHeight: 1000,
+    minCropBoxWidth: 875,
+    minCropBoxHeight: 875,
   });
 };
 
