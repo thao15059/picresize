@@ -32,8 +32,8 @@ const loadFile = (event) => {
     cropBoxMovable: false,
     cropBoxResizable: true,
     toggleDragModeOnDblclick: false,
-    minCropBoxWidth: 875,
-    minCropBoxHeight: 875,
+    minCropBoxWidth: 750,
+    minCropBoxHeight: 750,
   });
 };
 
