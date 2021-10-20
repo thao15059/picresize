@@ -52,12 +52,12 @@ document.querySelector("#btnExport").addEventListener("click", function (e) {
   });
   document
     .querySelector("#output-crop")
-    .setAttribute("src", croppedImageDataURL.toDataURL("image/jpg"));
+    .setAttribute("src", croppedImageDataURL.toDataURL("image/png"));
 
   croppedImageDataURL.toBlob((blob) => {
     var link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "750x500.jpg";
+    link.download = "750x500.png";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -65,12 +65,12 @@ document.querySelector("#btnExport").addEventListener("click", function (e) {
 
   document
     .querySelector("#output-crop-big")
-    .setAttribute("src", croppedImageDataURLBig.toDataURL("image/jpg"));
+    .setAttribute("src", croppedImageDataURLBig.toDataURL("image/png"));
 
   croppedImageDataURLBig.toBlob((blob) => {
     var link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "1000x1000.jpg";
+    link.download = "1000x1000.png";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
