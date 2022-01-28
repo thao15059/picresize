@@ -54,14 +54,14 @@ document.querySelector("#btnExport").addEventListener("click", function (e) {
     .querySelector("#output-crop")
     .setAttribute("src", croppedImageDataURL.toDataURL("image/png"));
 
-  croppedImageDataURL.toBlob((blob) => {
-    var link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "750x500.png";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
+//   croppedImageDataURL.toBlob((blob) => {
+//     var link = document.createElement("a");
+//     link.href = URL.createObjectURL(blob);
+//     link.download = "750x500.png";
+//     document.body.appendChild(link);
+//     link.click();
+//     document.body.removeChild(link);
+//   });
 
   document
     .querySelector("#output-crop-big")
