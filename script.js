@@ -20,7 +20,6 @@ const loadFile = (event) => {
   //   cropBoxResizable: true,
   //   toggleDragModeOnDblclick: false,
   // });
-
   imageBig.src = URL.createObjectURL(event.target.files[0]);
   cropperBig = new Cropper(imageBig, {
     dragMode: "move",
@@ -75,6 +74,10 @@ document.querySelector("#btnExport").addEventListener("click", function (e) {
     link.click();
     document.body.removeChild(link);
   });
+
+  setTimeout(function () {
+    window.location.reload();
+  }, 3000);
 });
 
 document.querySelector("#file").addEventListener("change", loadFile);
