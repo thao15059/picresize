@@ -4,10 +4,14 @@ const finalAspectRatio = finalCropWidth / finalCropHeight;
 
 let cropper;
 let cropperBig;
+let file;
 
 const loadFile = (event) => {
   // const image = document.getElementById("output");
   const imageBig = document.getElementById("outputBig");
+  file = !event.target.files
+    ? event.dataTransfer.files[0]
+    : event.target.files[0];
   // image.src = URL.createObjectURL(event.target.files[0]);
   // cropper = new Cropper(image, {
   //   dragMode: "move",
@@ -20,7 +24,7 @@ const loadFile = (event) => {
   //   cropBoxResizable: true,
   //   toggleDragModeOnDblclick: false,
   // });
-  imageBig.src = URL.createObjectURL(event.target.files[0]);
+  imageBig.src = URL.createObjectURL(file);
   cropperBig = new Cropper(imageBig, {
     dragMode: "move",
     // autoCropArea: 1,
@@ -81,3 +85,20 @@ document.querySelector("#btnExport").addEventListener("click", function (e) {
 });
 
 document.querySelector("#file").addEventListener("change", loadFile);
+
+const dropArea = document.querySelector(".drag-area");
+
+dropArea.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  console.log("file");
+});
+
+dropArea.addEventListener("dragleave", () => {
+  console.log("file");
+});
+
+dropArea.addEventListener("drop", (event) => {
+  event.preventDefault();
+  console.log("dropped");
+  loadFile(event);
+});
