@@ -2,16 +2,71 @@ const finalCropWidth = 750;
 const finalCropHeight = 500;
 const finalAspectRatio = finalCropWidth / finalCropHeight;
 
+const rex = /src="?([^"\s]+)"?\s*/;
+
 let cropper;
 let cropperBig;
 let file;
+let url;
+let imageBig;
 
 const loadFile = (event) => {
   // const image = document.getElementById("output");
-  const imageBig = document.getElementById("outputBig");
-  file = !event.target.files
-    ? event.dataTransfer.files[0]
-    : event.target.files[0];
+  imageBig = document.getElementById("outputBig");
+
+  if (event.type !== "drop") {
+    // access local file
+    file = !event.target.files
+      ? event.dataTransfer.files[0]
+      : event.target.files[0];
+    console.log(file);
+    imageBig.src = URL.createObjectURL(file);
+
+    imageBig.src = URL.createObjectURL(file);
+    cropperBig = new Cropper(imageBig, {
+      dragMode: "move",
+      // autoCropArea: 1,
+      restore: false,
+      guides: true,
+      center: false,
+      highlight: false,
+      cropBoxMovable: false,
+      cropBoxResizable: true,
+      toggleDragModeOnDblclick: false,
+      minCropBoxWidth: 1000,
+      minCropBoxHeight: 1000,
+      wheelZoomRatio: 0.01,
+    });
+  } else {
+    // access online file
+    const imageUrl = event.dataTransfer.getData("text/html");
+    url = rex.exec(imageUrl); // alert(url[1]);
+    const fileName = "imageFromGoogle";
+    fetch(url[1], {
+      mode: "cors",
+    }).then(async (response) => {
+      const contentType = response.headers.get("content-type");
+      const blob = await response.blob();
+      file = new File([blob], fileName, { type: contentType });
+      // access file here
+      imageBig.src = URL.createObjectURL(file);
+      cropperBig = new Cropper(imageBig, {
+        dragMode: "move",
+        // autoCropArea: 1,
+        restore: false,
+        guides: true,
+        center: false,
+        highlight: false,
+        cropBoxMovable: false,
+        cropBoxResizable: true,
+        toggleDragModeOnDblclick: false,
+        minCropBoxWidth: 1000,
+        minCropBoxHeight: 1000,
+        wheelZoomRatio: 0.01,
+      });
+    });
+  }
+
   // image.src = URL.createObjectURL(event.target.files[0]);
   // cropper = new Cropper(image, {
   //   dragMode: "move",
@@ -24,21 +79,21 @@ const loadFile = (event) => {
   //   cropBoxResizable: true,
   //   toggleDragModeOnDblclick: false,
   // });
-  imageBig.src = URL.createObjectURL(file);
-  cropperBig = new Cropper(imageBig, {
-    dragMode: "move",
-    // autoCropArea: 1,
-    restore: false,
-    guides: true,
-    center: false,
-    highlight: false,
-    cropBoxMovable: false,
-    cropBoxResizable: true,
-    toggleDragModeOnDblclick: false,
-    minCropBoxWidth: 1000,
-    minCropBoxHeight: 1000,
-    wheelZoomRatio: 0.01,
-  });
+  // imageBig.src = URL.createObjectURL(file);
+  // cropperBig = new Cropper(imageBig, {
+  //   dragMode: "move",
+  //   // autoCropArea: 1,
+  //   restore: false,
+  //   guides: true,
+  //   center: false,
+  //   highlight: false,
+  //   cropBoxMovable: false,
+  //   cropBoxResizable: true,
+  //   toggleDragModeOnDblclick: false,
+  //   minCropBoxWidth: 1000,
+  //   minCropBoxHeight: 1000,
+  //   wheelZoomRatio: 0.01,
+  // });
 };
 
 document.querySelector("#btnExport").addEventListener("click", function (e) {
@@ -77,11 +132,8 @@ document.querySelector("#btnExport").addEventListener("click", function (e) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    location.reload();
   });
-
-  setTimeout(function () {
-    window.location.reload();
-  }, 3000);
 });
 
 document.querySelector("#file").addEventListener("change", loadFile);
@@ -90,15 +142,12 @@ const dropArea = document.querySelector(".drag-area");
 
 dropArea.addEventListener("dragover", (event) => {
   event.preventDefault();
-  console.log("file");
 });
 
-dropArea.addEventListener("dragleave", () => {
-  console.log("file");
-});
+dropArea.addEventListener("dragleave", () => {});
 
 dropArea.addEventListener("drop", (event) => {
   event.preventDefault();
-  console.log("dropped");
+
   loadFile(event);
 });
